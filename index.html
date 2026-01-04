@@ -1,12 +1,127 @@
+<!doctype html>
 <!--
  * Copyright 2020 Google
  * SPDX-License-Identifier: Apache-2.0
 -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A beautiful word guessing game with progressive flower reveal"
+    />
+    <meta name="theme-color" content="#4CAF50" />
 
-<!doctype html>
-<html>
-<script src="/static/main.js" type="module"></script>
-<h1>Hello</h1>
-<input type="button" value="Hide" id="hide"></input>
-<input type="button" value="Show" id="show"></input>
-<div id="flower"></div>
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/flowerguesses/manifest.json" />
+    <link rel="apple-touch-icon" href="/flowerguesses/icon-192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Flower Guesses" />
+
+    <title>Flower Guesses - Word Guessing Game</title>
+
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🌸 Flower Guesses 🌸</h1>
+        <p class="subtitle">
+          Guess the flower name before the bloom completes!
+        </p>
+      </header>
+
+      <div class="top-controls">
+        <div id="difficulty-display" class="difficulty-display"></div>
+        <div class="button-group">
+          <button id="new-game-btn" aria-label="Start new game">
+            New Game
+          </button>
+          <button id="stats-btn" aria-label="View statistics">Stats</button>
+        </div>
+      </div>
+
+      <div class="flower-section">
+        <div id="flower-container" role="img" aria-label="Flower display"></div>
+      </div>
+
+      <div class="word-section">
+        <div id="word-display" role="status" aria-live="polite">_ _ _ _</div>
+        <div id="attempts-display" role="status" aria-live="polite">
+          Remaining attempts: 6
+        </div>
+        <div id="incorrect-display" role="status" aria-live="polite"></div>
+      </div>
+
+      <div
+        id="keyboard-container"
+        role="group"
+        aria-label="Virtual keyboard"
+      ></div>
+    </div>
+
+    <!-- Difficulty Selection Modal -->
+    <div
+      id="difficulty-modal"
+      class="modal"
+      role="dialog"
+      aria-labelledby="difficulty-title"
+    >
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <h2 id="difficulty-title">Choose Difficulty</h2>
+        <p>Select how challenging you want the game to be</p>
+        <div class="difficulty-buttons">
+          <button id="easy-btn" class="difficulty-btn">
+            Easy (8 attempts)
+          </button>
+          <button id="medium-btn" class="difficulty-btn">
+            Medium (6 attempts)
+          </button>
+          <button id="hard-btn" class="difficulty-btn">
+            Hard (5 attempts)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div
+      id="game-over-modal"
+      class="modal"
+      role="dialog"
+      aria-labelledby="game-over-title"
+    >
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <h2 id="game-over-title">Game Over</h2>
+        <p id="game-over-message"></p>
+        <button
+          id="play-again-btn"
+          onclick="
+            document.getElementById('difficulty-modal').style.display = 'flex';
+            document.getElementById('game-over-modal').style.display = 'none';
+          "
+        >
+          Play Again
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div
+      id="stats-modal"
+      class="modal"
+      role="dialog"
+      aria-labelledby="stats-title"
+    >
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <h2 id="stats-title">Your Statistics</h2>
+        <div id="stats-content"></div>
+      </div>
+    </div>
+  </body>
+</html>

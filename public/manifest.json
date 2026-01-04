@@ -1,0 +1,33 @@
+{
+  "name": "Flower Guesses",
+  "short_name": "FlowerGuess",
+  "description": "A beautiful word guessing game with progressive flower reveal",
+  "start_url": "/flowerguesses/",
+  "scope": "/flowerguesses/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "/flowerguesses/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/flowerguesses/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/flowerguesses/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["games", "entertainment"],
+  "screenshots": []
+}
