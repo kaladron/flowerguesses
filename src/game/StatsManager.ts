@@ -22,7 +22,20 @@ export class StatsManager {
     try {
       const stored = localStorage.getItem(STATS_KEY);
       if (stored) {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored);
+        // Validate the structure
+        if (
+          typeof parsed === 'object' &&
+          parsed !== null &&
+          typeof parsed.gamesPlayed === 'number' &&
+          typeof parsed.gamesWon === 'number' &&
+          typeof parsed.gamesLost === 'number' &&
+          typeof parsed.currentStreak === 'number' &&
+          typeof parsed.maxStreak === 'number' &&
+          typeof parsed.winRate === 'number'
+        ) {
+          return parsed as GameStats;
+        }
       }
     } catch (error) {
       console.error('Failed to load stats:', error);

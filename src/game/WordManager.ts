@@ -67,24 +67,31 @@ const HARD_WORDS = [
 ];
 
 export class WordManager {
-  private usedWords: Set<string> = new Set();
+  private usedWords: Map<Difficulty, Set<string>> = new Map([
+    ['easy', new Set()],
+    ['medium', new Set()],
+    ['hard', new Set()],
+  ]);
 
   /**
    * Get a random word based on difficulty
    */
   getWord(difficulty: Difficulty): WordData {
     const wordList = this.getWordListForDifficulty(difficulty);
-    const availableWords = wordList.filter(word => !this.usedWords.has(word));
+    const difficultyUsedWords = this.usedWords.get(difficulty)!;
+    const availableWords = wordList.filter(
+      word => !difficultyUsedWords.has(word)
+    );
 
-    // Reset if all words have been used
+    // Reset if all words have been used for this difficulty
     if (availableWords.length === 0) {
-      this.usedWords.clear();
+      difficultyUsedWords.clear();
       return this.getWord(difficulty);
     }
 
     const word =
       availableWords[Math.floor(Math.random() * availableWords.length)];
-    this.usedWords.add(word);
+    difficultyUsedWords.add(word);
 
     return {
       word,
@@ -120,7 +127,9 @@ export class WordManager {
    * Reset used words
    */
   reset(): void {
-    this.usedWords.clear();
+    this.usedWords.get('easy')!.clear();
+    this.usedWords.get('medium')!.clear();
+    this.usedWords.get('hard')!.clear();
   }
 
   /**

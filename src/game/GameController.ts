@@ -102,8 +102,8 @@ export class GameController {
     // Subscribe to state changes
     this.gameState.subscribe(state => this.updateUI(state));
 
-    // Reset UI
-    this.flowerDisplay.reset();
+    // Recreate flower with correct number of petals for this difficulty
+    this.flowerDisplay.recreate(maxAttempts);
     this.keyboard.reset();
     this.keyboard.enable();
 

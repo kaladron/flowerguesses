@@ -8,13 +8,15 @@ export class FlowerDisplay {
   private container: HTMLElement;
   private petals: SVGElement[] = [];
   private currentPetalIndex = 0;
+  private maxPetals: number;
 
-  constructor(containerId: string) {
+  constructor(containerId: string, maxPetals: number = 8) {
     const element = document.getElementById(containerId);
     if (!element) {
       throw new Error(`Container element with id "${containerId}" not found`);
     }
     this.container = element;
+    this.maxPetals = maxPetals;
     this.createFlower();
   }
 
@@ -32,11 +34,10 @@ export class FlowerDisplay {
     const center = this.createCircle(100, 100, 15, '#FFD700');
     svg.appendChild(center);
 
-    // Create 8 petals in a circular pattern
-    const petalCount = 8;
-    const angleStep = (2 * Math.PI) / petalCount;
+    // Create petals based on maxPetals
+    const angleStep = (2 * Math.PI) / this.maxPetals;
 
-    for (let i = 0; i < petalCount; i++) {
+    for (let i = 0; i < this.maxPetals; i++) {
       const angle = i * angleStep;
       const petal = this.createPetal(angle, i);
       petal.style.display = 'none'; // Start hidden
@@ -136,6 +137,17 @@ export class FlowerDisplay {
       petal.classList.remove('petal-reveal');
     });
     this.currentPetalIndex = 0;
+  }
+
+  /**
+   * Recreate flower with new petal count
+   */
+  recreate(maxPetals: number): void {
+    this.maxPetals = maxPetals;
+    this.container.innerHTML = '';
+    this.petals = [];
+    this.currentPetalIndex = 0;
+    this.createFlower();
   }
 
   /**
