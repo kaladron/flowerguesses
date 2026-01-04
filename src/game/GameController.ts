@@ -63,6 +63,15 @@ export class GameController {
     document.querySelectorAll('.modal-close').forEach(btn => {
       btn.addEventListener('click', () => this.closeModals());
     });
+
+    // Play again button
+    const playAgainBtn = document.getElementById('play-again-btn');
+    if (playAgainBtn) {
+      playAgainBtn.addEventListener('click', () => {
+        this.closeModals();
+        this.showDifficultySelection();
+      });
+    }
   }
 
   /**
